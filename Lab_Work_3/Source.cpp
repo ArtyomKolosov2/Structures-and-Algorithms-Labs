@@ -4,6 +4,10 @@ using namespace std;
 
 template<class T> struct Node 
 {
+public :Node(T data) 
+	{
+		Data = data;
+	}
 	T Data;
 	Node* next;
 	Node* previous;
@@ -12,56 +16,132 @@ template<class T> struct Node
 template<class T> struct TwoWayLinkedList 
 {
 	Node<T>* FirstNode;
+	Node<T>* Tail;
+	int count;
 
-	int Length() 
+	void Add(T data, int index) 
 	{
-		int result = 0;
-		if (FirstNode != nullptr) 
+		if (count != 0 && (index < 0 || index > count)) 
 		{
-			Node<T>* temp = FirstNode;
-			do
-			{
-				result++;
-				temp = temp->next;
-			} while (temp != FirstNode)
+			return;
 		}
-	}
+        if (index == count + 1)
+        {
+            AddToTail(data);
+            return;
+        }
+        else if (index == 1)
+        {
+            AddToHead(data);
+            return;
+        }
+        int i = 1;
+		Node<T>* current = FirstNode;
 
-	void PrintNode() 
-	{
-		if (FirstNode != nullptr)
-		{
-			Node<T>* temp = FirstNode;
-			do 
-			{
-				cout << temp->Data << endl;
-				temp = temp->next;
-			} while(temp != FirstNode)
-		}
-	}
+        while (i < index)
+        {
+            current = current->next;
+            i++;
+        }
+        Node<T>* previousCurrentElement = current->previous;
+        Node<T>* newNode = new Node<T>(data);
+        if (previousCurrentElement != nullptr && count != 1)
+            previousCurrentElement->next = newNode;
 
-	void AddToEnd(T data) 
-	{
-
+        newNode->next = current;
+        newNode->previous = previousCurrentElement;
+        current->previous = newNode;
+        count++;
 	}
 
 	void DeleteList() 
 	{
-		if (FirstNode != nullptr)
+		Node<T>* deleteElement, *current = FirstNode;
+		while (current != Tail) 
 		{
-			Node<T>* temp = FirstNode;
-			Node<T>* delete_temp;
-			do
-			{
-				delete_temp = temp;
-				temp = temp->next;
-				delete temp;
-			} while (temp != nullptr)
+			deleteElement = current;
+			current = current->next;
+			delete deleteElement;
 		}
+		delete current;
 	}
+
+	void AddToHead(T data) 
+	{
+		Node<T>* newNode = new Node<T>(data);
+		newNode->previous = nullptr;
+		newNode->next = FirstNode;
+		if (FirstNode != nullptr) 
+		{
+			FirstNode->previous = newNode;
+		}
+		if (count == 0) 
+		{
+			FirstNode = Tail = newNode;
+		}
+		else 
+		{
+			FirstNode = newNode;
+		}
+		count++;
+	}
+
+	void AddToTail(T data)
+	{
+		Node<T>* newNode = new Node<T>(data);
+		newNode->next = nullptr;
+		newNode->previous = Tail;
+		if (Tail != nullptr)
+		{
+			Tail->next = newNode;
+		}
+		if (count == 0)
+		{
+			Tail = FirstNode = newNode;
+		}
+		else
+		{
+			Tail = newNode;
+		}
+		count++;
+	}
+
+	void Print() 
+	{
+		Node<T>* current = FirstNode;
+		while (current != Tail) 
+		{
+			cout << current->Data << endl;
+			current = current->next;
+		}
+		cout << current->Data << endl;
+	}
+
+	/*Node<T>* GetNode(int index) 
+	{
+		Node<T>* current = FirstNode;
+		if (index == 1) 
+		{
+			retru
+		}
+		while (current != Tail)
+		{
+			cout << current->Data << endl;
+			current = current->next;
+		}
+		cout << current->Data << endl;
+	}*/
+
+	
 };
 
 int main() 
 {
+	TwoWayLinkedList<string>* List = new TwoWayLinkedList<string>();
+	List->Add(string("hello world!1"), 1);
+	List->Add(string("hello world!2"), 1);
+	List->Add(string("hello world!3"), 1);
+	List->Print();
+	List->DeleteList();
 	return 0;
 }
