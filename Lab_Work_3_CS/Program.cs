@@ -8,20 +8,50 @@ namespace Lab_Work_3_CS
     {
         static void Main(string[] args)
         {
-            LinkedListStudy<string> study = new LinkedListStudy<string>();
-            study.AddAtFront("Hello");
-            study.AddAtBack("World");
-            study.Print();
+            LinkedListlinkedList<string> linkedList = new LinkedListlinkedList<string>();
+            linkedList.Add("0");
+            linkedList.Add("4");
+            linkedList.Add("1645hfg7u657rtygj5niuy");
+            linkedList.Add("1645hfg7u657rtygj5niuy");
+            linkedList.Add("8vchgffd");
+            linkedList.Add("8vchgffd");
+            linkedList.Add("1645hfg7u657rtygj5niuy");
+            linkedList.Add("1645hfg7u657rtygj5niuy");
+            linkedList.Add("8vchgffd");
+            linkedList.Add("8vchgffd");
+            
+            linkedList.Add("8vchgffd");
+            linkedList.Add("8");
+            linkedList.Add("3");
+            linkedList.Add("8");
+            linkedList.Add("35");
+            SortLinkedList.Sort(linkedList);
+            linkedList.Print();
         }
+    }
 
-
+    public static class SortLinkedList
+    {
+        public static void Sort<T>(LinkedListlinkedList<T> linkedList) where T: IComparable
+        {
+            for (int i = 0; i < linkedList.Length; i++)
+            {
+                for (int j = i + 1; j < linkedList.Length; j++)
+                {
+                    if (linkedList[i].CompareTo(linkedList[j]) > 0)
+                    {
+                        linkedList.SwapValue(linkedList.GetNodeByIndex(i), linkedList.GetNodeByIndex(j));
+                    }
+                }
+            }
+        }
     }
 
     public class LinkedListEnumerator<T> : IEnumerator
     {
-        private LinkedListStudy<T> list;
+        private LinkedListlinkedList<T> list;
         private int position = -1;
-        public LinkedListEnumerator(LinkedListStudy<T> linkedList)
+        public LinkedListEnumerator(LinkedListlinkedList<T> linkedList)
         {
             list = linkedList;
         }
@@ -52,14 +82,42 @@ namespace Lab_Work_3_CS
             position = -1;
         }
     }
-    public class LinkedListStudy<T> : IEnumerable
+    public class LinkedListlinkedList<T> : IEnumerable
     {
         private Node<T> FirstNode = null;
 
-        private Node<T> Tail = null;
-
         private int _length = 0;
 
+        public Node<T> GetNodeByIndex(int index)
+        {
+            Node<T> current = FirstNode;
+            Node<T> result = null;
+            int count = 0;
+            if (index >= Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            do
+            {
+                if (index == count)
+                {
+                    result = current;
+                    break;
+                }
+                current = current.Next;
+                count++;
+            }
+            while (current != FirstNode);
+            return result;
+        }
+
+        public void SwapValue(Node<T> n1, Node<T> n2)
+        {
+            T temp = n1.Value;
+            n1.Value = n2.Value;
+            n2.Value = temp;
+
+        }
         public T this[int index]
         {
             get
@@ -111,58 +169,31 @@ namespace Lab_Work_3_CS
                 return _length;
             }
         }
+
         public void Print()
         {
-            Node<T> ptr = FirstNode;
-            int count = 1;
-            if (Length != 0)
+            foreach(var node in this)
             {
-                do
-                {
-                    Console.WriteLine($"{count.ToString()}: {ptr.Value.ToString()}");
-                    count++;
-                    ptr = ptr.Next;
-                } while (ptr != Tail);
+                Console.WriteLine(node);
             }
         }
 
-        public void AddAtFront(T value)
+        public void Add(T data)
         {
-            Node<T> node = new Node<T>(value);
-            if (Length == 0)
+            Node<T> node = new Node<T>(data);
+
+            if (FirstNode == null)
             {
-                FirstNode = Tail = node;
-                FirstNode.Next = Tail;
-                Tail = FirstNode;
-            }
-            else
-            {
-                node.Next = FirstNode;
-                node.Previous = Tail;
                 FirstNode = node;
-            }
-            _length++;
-        }
-
-        public void AddAtBack(T value)
-        {
-            Node<T> node = new Node<T>(value);
-            if (Length == 0)
-            {
-                Tail = FirstNode = node;
-                FirstNode.Next = Tail;
-                Tail = FirstNode;
+                FirstNode.Next = node;
+                FirstNode.Previous = node;
             }
             else
             {
-                Node<T> ptr = FirstNode;
-                while (ptr.Next != FirstNode)
-                {
-                    ptr = ptr.Next;
-                }
-                ptr.Next = node;
+                node.Previous = FirstNode.Previous;
                 node.Next = FirstNode;
-                node.Previous = ptr;
+                FirstNode.Previous.Next = node;
+                FirstNode.Previous = node;
             }
             _length++;
         }
