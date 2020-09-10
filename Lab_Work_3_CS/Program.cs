@@ -6,25 +6,28 @@ namespace Lab_Work_3_CS
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
-            LinkedListlinkedList<string> linkedList = new LinkedListlinkedList<string>();
-            linkedList.Add("0");
-            linkedList.Add("4");
-            linkedList.Add("1645hfg7u657rtygj5niuy");
-            linkedList.Add("1645hfg7u657rtygj5niuy");
-            linkedList.Add("8vchgffd");
-            linkedList.Add("8vchgffd");
-            linkedList.Add("1645hfg7u657rtygj5niuy");
-            linkedList.Add("1645hfg7u657rtygj5niuy");
-            linkedList.Add("8vchgffd");
-            linkedList.Add("8vchgffd");
-            
-            linkedList.Add("8vchgffd");
-            linkedList.Add("8");
-            linkedList.Add("3");
-            linkedList.Add("8");
-            linkedList.Add("35");
+            LinkedListlinkedList<string> linkedList = new LinkedListlinkedList<string>
+            {
+                "0",
+                "4",
+                "1645hfg7u657rtygj5niuy",
+                "1645hfg7u657rtygj5niuy",
+                "8vchgffd",
+                "8vchgffd",
+                "1645hfg7u657rtygj5niuy",
+                "1645hfg7u657rtygj5niuy",
+                "8vchgffd",
+                "8vchgffd",
+
+                "8vchgffd",
+                "8",
+                "3",
+                "8",
+                "35"
+            };
             SortLinkedList.Sort(linkedList);
             linkedList.Print();
         }

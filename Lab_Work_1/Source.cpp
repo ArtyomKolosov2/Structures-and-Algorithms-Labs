@@ -18,7 +18,7 @@ int Find_Sum(int*, int);
 
 bool Get_Operation_Result(int, int);
 
-AnalisysResult Find_Operation_Percent(int*, int, int);
+AnalisysResult Find_Array_Percent(int*, int, int);
 
 int* Get_Random_Array(int, int start = 0, int end = 100);
 
@@ -26,13 +26,13 @@ int main()
 {
 
 	srand(time(NULL));
-
-	int array_size = 100;
+	int array_size = 1000;
 	int* arr = Get_Random_Array(array_size, -100, 100);
 	Show_Array(arr, array_size);
-	AnalisysResult result_one = Find_Operation_Percent(arr, array_size, NegativeNums);
-	AnalisysResult result_two = Find_Operation_Percent(arr, array_size, Zero);
-	AnalisysResult result_three = Find_Operation_Percent(arr, array_size, PositiveNums);
+	cout << "Sum of negative numbers = " << Find_Sum(arr, array_size) << endl;;
+	AnalisysResult result_one = Find_Array_Percent(arr, array_size, NegativeNums);
+	AnalisysResult result_two = Find_Array_Percent(arr, array_size, Zero);
+	AnalisysResult result_three = Find_Array_Percent(arr, array_size, PositiveNums);
 	cout << "1.Negative Nums Percent - " << result_one.percent << "%, Amount - " << result_one.amount << endl;
 	cout << "2.Zero Nums Percent - " << result_two.percent << "%, Amount - " << result_two.amount << endl;
 	cout << "3.Positive Nums Percent - " << result_three.percent << "%, Amount - " << result_three.amount << endl;
@@ -45,7 +45,11 @@ void Show_Array(int *arr, int size)
 {
 	for (int i = 0; i < size; i++) 
 	{
-		cout << fixed << setprecision(2) << arr[i] << ' ';
+		if (i % 10 == 0)
+		{
+			cout << endl;
+		}
+		cout << fixed << setprecision(4) << arr[i] << ' ';
 	}
 	cout << endl;
 }
@@ -83,7 +87,7 @@ bool Get_Operation_Result(int num, int operationCode)
 	return result;
 }
 
-AnalisysResult Find_Operation_Percent(int* arr, int size, int operationCode)
+AnalisysResult Find_Array_Percent(int* arr, int size, int operationCode)
 {
 	AnalisysResult result;
 	int amount = 0;
@@ -113,7 +117,6 @@ int* Get_Random_Array(int size, int start, int end)
 	for (int i = 0; i < size; i++)
 	{
 		new_array[i] = start + rand() % end;
-		cout << new_array[i] << " ";
 	}
 	return new_array;
 }
