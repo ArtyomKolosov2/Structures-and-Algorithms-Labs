@@ -9,7 +9,7 @@ namespace Lab_Work_3_CS
         
         static void Main(string[] args)
         {
-            LinkedListlinkedList<string> linkedList = new LinkedListlinkedList<string>
+            TwoWayLinkedList<string> linkedList = new TwoWayLinkedList<string>
             {
                 "0",
                 "4",
@@ -35,7 +35,7 @@ namespace Lab_Work_3_CS
 
     public static class SortLinkedList
     {
-        public static void Sort<T>(LinkedListlinkedList<T> linkedList) where T: IComparable
+        public static void Sort<T>(TwoWayLinkedList<T> linkedList) where T: IComparable
         {
             for (int i = 0; i < linkedList.Length; i++)
             {
@@ -52,9 +52,9 @@ namespace Lab_Work_3_CS
 
     public class LinkedListEnumerator<T> : IEnumerator
     {
-        private LinkedListlinkedList<T> list;
+        private TwoWayLinkedList<T> list;
         private int position = -1;
-        public LinkedListEnumerator(LinkedListlinkedList<T> linkedList)
+        public LinkedListEnumerator(TwoWayLinkedList<T> linkedList)
         {
             list = linkedList;
         }
@@ -85,7 +85,7 @@ namespace Lab_Work_3_CS
             position = -1;
         }
     }
-    public class LinkedListlinkedList<T> : IEnumerable
+    public class TwoWayLinkedList<T> : IEnumerable
     {
         private Node<T> FirstNode = null;
 
