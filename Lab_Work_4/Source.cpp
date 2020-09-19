@@ -22,16 +22,20 @@ int main()
 {
 	system("chcp 1251");
 	srand(time(NULL));
-	int size = 50;
-	int* my_array = Get_Random_Array(size, -100, 100);
-	int max_even = Find_Max_Even(my_array, size);
-	Show_Array(my_array, size);
-	Search(my_array, max_even, size);
-	Selection_Sort(my_array, size);
-	Show_Array(my_array, size);
-	Binary_Search(my_array, max_even, size);
-	delete[] my_array;
-	system("pause");
+	int size = 10;
+	for (; size < 110; size += 10) {
+		cout << "Array size " << size << endl;
+		int* my_array = Get_Random_Array(size, -100, 100);
+		int max_even = Find_Max_Even(my_array, size);
+		Show_Array(my_array, size);
+		Search(my_array, max_even, size);
+		Selection_Sort(my_array, size);
+		Show_Array(my_array, size);
+		Binary_Search(my_array, max_even, size);
+		delete[] my_array;
+		system("pause");
+		system("cls");
+	}
 	return 0;
 }
 
@@ -130,17 +134,19 @@ void Selection_Sort(int* arr, int size)
 	unsigned int 
 		change = 0,
 		compare = 0;
-	for (int i = 0; i < size - 1; i++, change++) 
+	for (int i = 0; i < size - 1; i++) 
 	{
 		int small = i;
-		for (int j = i + 1; j < size; j++, compare++) 
+		for (int j = i + 1; j < size; j++) 
 		{
 			if (arr[j] < arr[small] ) 
 			{
 				small = j;
 			}
+			compare++;
 		}
 		swap(arr[i], arr[small]);
+		change++;
 	}
 	cout << "Selection sort:\n";
 	cout << "Кол-во сравнений: " << compare << endl;

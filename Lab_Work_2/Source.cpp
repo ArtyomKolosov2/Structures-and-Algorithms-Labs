@@ -57,6 +57,7 @@ int main()
 	ofstream file_two("students1.txt");
 	Sort_Students_Array(students, size);
 	Write_Students_To_File(file_two, students, size);
+	cout << "All Done!\n";
 	delete[] students;
 	return 0;
 }
