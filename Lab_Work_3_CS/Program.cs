@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Lab_Work_3_CS
 {
@@ -21,7 +20,6 @@ namespace Lab_Work_3_CS
                 "1645hfg7u657rtygj5niuy",
                 "8vchgffd",
                 "8vchgffd",
-
                 "8vchgffd",
                 "8",
                 "3",
@@ -175,9 +173,13 @@ namespace Lab_Work_3_CS
 
         public void Print()
         {
-            foreach(var node in this)
+            foreach(Node<T> node in this)
             {
-                Console.WriteLine(node);
+                unsafe
+                {
+                    Node<T> node1 = node;
+                    Console.WriteLine($"{node}, addres =");
+                }
             }
         }
 

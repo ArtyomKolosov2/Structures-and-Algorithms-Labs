@@ -6,10 +6,10 @@
 
 using namespace std;
 
-const int MARKS_SIZE = 5,
-		  SURNAME_OFILE_SIZE = 20,
-	      GROUP_OFILE_SIZE = 5,
-		  MARKS_OFILE_SIZE = 15;
+const int MARKS_SIZE =5,
+		  SURNAME_OFILE_SIZE = 21,
+	      GROUP_OFILE_SIZE = 6,
+		  MARKS_OFILE_SIZE = 16;
 
 struct Student 
 {
@@ -34,21 +34,24 @@ void Fill_With_Random_Data(Student*, int);
 
 void Write_Students_To_File(ofstream&, Student*, int);
 
+void Add_New_Data(Student*, int);
+
 void Write_To_File(ofstream&, int*, int, int);
 
 void Write_To_File(ofstream& , int , int );
 
 void Write_To_File(ofstream&, string, int);
 
-
 int main() 
 {
 	srand((unsigned int)(time(NULL)));
+	system("chcp 1251 > null");
 	int size = 10;
 	Student *students = new Student[size];
 	ofstream file_one("students.txt");
 
-	Fill_With_Random_Data(students, size);
+	Fill_With_Random_Data(students, size-1);
+	Add_New_Data(students, size-1);
 	Show_Student_Array(students, size);
 
 	Write_Students_To_File(file_one, students, size);
@@ -200,6 +203,24 @@ void Write_Students_To_File(ofstream&file_stream, Student* students, int size)
 		Write_To_File(file_stream, students[i].group_number, GROUP_OFILE_SIZE);
 		file_stream << '\n';
 	}
+}
+
+void Add_New_Data(Student* students, int index)
+{
+	Student student;
+	cout << "¬ведите группу:\n";
+	cin >> student.group_number;
+	cin.ignore();
+	cout << "¬ведите ‘амилию и инициалы:\n";
+	getline(cin, student.surname);
+	cout << "¬ведите отметки:\n";
+	for (int i = 0; i < MARKS_SIZE; i++) 
+	{
+		cout << i + 1 << ". ";
+		cin >> student.marks[i];
+	}
+	students[index] = student;
+	
 }
 
 void Write_To_File(ofstream& file_stream, int* marks, int marks_size, int data_size) 
