@@ -8,26 +8,49 @@ namespace Lab_Work_3_CS
         
         static void Main(string[] args)
         {
+            int inputAmount = 3;
+            int splitAmount = 50;
+            string splitSymbol = "=";
             TwoWayLinkedList<string> linkedList = new TwoWayLinkedList<string>
             {
+                "1",
                 "0",
-                "4",
-                "1645hfg7u657rtygj5niuy",
-                "1645hfg7u657rtygj5niuy",
-                "8vchgffd",
-                "8vchgffd",
-                "1645hfg7u657rtygj5niuy",
-                "1645hfg7u657rtygj5niuy",
-                "8vchgffd",
-                "8vchgffd",
-                "8vchgffd",
-                "8",
-                "3",
-                "8",
-                "35"
+                "BNTU",
+                "Videos",
+                "Math",
+                "C# better than Java",
+                "python not so good",
+                "hello world!",
+                "How do you do",
+                "London is the capital of GB"
             };
-            SortLinkedList.Sort(linkedList);
+            for (int i = 0; i < inputAmount; i++)
+            {
+                Console.WriteLine("Введите данные: ");
+                linkedList.Add(Console.ReadLine());
+            }
+            Center(splitAmount, "Unsorted list:", splitSymbol);
             linkedList.Print();
+            SortLinkedList.Sort(linkedList);
+            Center(splitAmount, "Sorted list:", splitSymbol);
+            linkedList.Print();
+        }
+        public static void Center(int amount, string msg, string symbol)
+        {
+            int divided_amount = amount / 2;
+            for (int i = 0; i < amount; i++)
+            {
+
+                if (i == divided_amount)
+                {
+                    Console.Write(msg);
+                }
+                else
+                {
+                    Console.Write(symbol);
+                }
+            }
+            Console.Write("\n");
         }
     }
 
@@ -173,12 +196,23 @@ namespace Lab_Work_3_CS
 
         public void Print()
         {
-            foreach(Node<T> node in this)
+            for (int i = 0; i < Length; i++)
             {
                 unsafe
                 {
-                    Node<T> node1 = node;
-                    Console.WriteLine($"{node}, addres =");
+                    Node<T> currentNode = GetNodeByIndex(i);
+                    string resultStr = currentNode.Value.ToString();
+                    if (currentNode.Value is string strNode)
+                    {
+                        
+                        fixed (char*p = strNode)
+                        {
+                            long* addr = (long*)p;
+                            resultStr = $"{strNode}: addr = {(long)addr}";
+                            
+                        }
+                    }
+                    Console.WriteLine(resultStr);
                 }
             }
         }
