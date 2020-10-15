@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <ctime>
+#include <cmath>
 
 struct Node {
     int key;
@@ -11,6 +12,8 @@ struct Node {
 Node* New_Node(int);
 
 Node* Insert(Node*, int);
+
+int Count(Node*);
 
 int Get_Random_Int(int, int);
 
@@ -22,6 +25,7 @@ using namespace std;
 
 int main() {
     srand(time(NULL));
+    system("chcp 1251 > nul");
     Node* root = NULL;
 
     int amount, min, max;
@@ -35,16 +39,11 @@ int main() {
     for (int i = 0; i < amount; i++) {
         root = Insert(root, Get_Random_Int(min, max));
     }
-
+    int elementAmount = Count(root);
+    int generation = 2;
     Print_Tree_Info(root);
-
-    char user_answer;
-
-    do {
-        Print_Tree_Info(root);
-        cout << "Continue? (y/n): ";
-        cin >> user_answer;
-    } while (user_answer == 'y');
+    cout << "Потомков от второго уровня:" << elementAmount - 1 << endl;
+    system("pause");
     return 0;
 }
 
@@ -69,19 +68,12 @@ Node* Insert(Node* Node, int key) {
     return Node;
 }
 
-void Print_Tree_Info(Node* root) {
-
-    if (root != NULL) {
-        Print_Tree_Info(root->left);
-        cout << "=========\n"
-            << "Data: " << root->key
-            << "\nLeft child address: " << root->left
-            << "\nRight child address: " << root->right << "\n"
-            << "=========\n";
-
-        Print_Tree_Info(root->right);
-
+int Count(Node* tree)
+{
+    if (tree == NULL) {
+        return 0;
     }
+    return Count(tree->right) + Count(tree->left) + 1;
 }
 
 void Print_Tree_Info(Node* root) {
