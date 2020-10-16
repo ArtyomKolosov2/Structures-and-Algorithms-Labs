@@ -85,13 +85,11 @@ void Print_Tree_Info(Node* root) {
         << "\nLeft child address: " << root->left 
         << "\nRight child address: " << root->right << "\n" 
         << "=========\n";
-       
         Print_Tree_Info(root->right);
-        
     }
 }
 
 int Get_Random_Int(int min, int max) {
     static const double fraction = 1.0 / ((double)(RAND_MAX) + 1.0);
-    return (int)(rand() * fraction * (max - min + 1) + min);
+    return (int)(rand() * fraction * (double)(max - min + 1) + min);
 }

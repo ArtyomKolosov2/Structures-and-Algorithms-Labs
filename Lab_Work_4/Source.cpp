@@ -88,12 +88,12 @@ void Selection_Sort(int* arr, int size)
 	cout << "Кол-во изменений: " << change << endl;
 }
 
-void Insertion_Sort(int* arr, int amount) 
+void Insertion_Sort(int* arr, int size) 
 {
 	unsigned int
 		change = 0,
 		compare = 0;
-	for (int i = 1; i < amount; i++) 
+	for (int i = 1; i < size; i++) 
 	{
 		for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--, compare++) 
 		{
