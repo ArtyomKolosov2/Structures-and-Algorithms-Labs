@@ -18,8 +18,8 @@ int main()
 {
 	system("chcp 1251");
 	srand(time(NULL));
-	int size = 10;
-	for (; size < 110; size += 10) {
+	int size = 100;
+	for (; size < 1100; size += 100) {
 		cout << "Array size " << size << endl;
 		int* my_array_one = Get_Random_Array(size, -100, 100);
 		Show_Array(my_array_one, size);
