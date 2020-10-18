@@ -27,10 +27,11 @@ int main()
 		cout << "Array size " << size << endl;
 		int* my_array = Get_Random_Array(size, -100, 100);
 		int max_even = Find_Max_Even(my_array, size);
-		Show_Array(my_array, size);
+		//Show_Array(my_array, size);
 		Search(my_array, max_even, size);
 		Selection_Sort(my_array, size);
-		Show_Array(my_array, size);
+		//Show_Array(my_array, size);
+		cout << "Binary search:\n";
 		Binary_Search(my_array, max_even, size);
 		delete[] my_array;
 		system("pause");
@@ -42,7 +43,7 @@ int main()
 int Find_Max_Even(int* arr, int size)
 {
 	int max_even = arr[0];
-	for (int i = 0; i < size; i++)
+	for (int i = 1; i < size; i++)
 	{
 		if (arr[i] % 2 == 0 && max_even < arr[i])
 		{
@@ -69,7 +70,6 @@ void Search(int* arr, int search_element, int size)
 
 void Binary_Search(int* arr, int search_element, int size)
 {
-	cout << "Binary search:\n";
 	int left = 0,
 		right = size - 1,
 		mid = 0,
