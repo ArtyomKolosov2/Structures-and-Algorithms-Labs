@@ -12,16 +12,18 @@ int main()
 {
     setlocale(LC_ALL, "rus");
 
-    string source, pattern;
+    while (true) {
+        string source, pattern;
 
-    cout << "Введите ФИО: ";
-    getline(cin, source);
+        cout << "Введите текст: ";
+        getline(cin, source);
 
-    cout << "Введите шаблон: ";
-    getline(cin, pattern);
+        cout << "Введите подстроку: ";
+        getline(cin, pattern);
 
-    cout << Find(source, pattern) << endl;
-    cout << SubFind(source, pattern) << endl;
+        cout << "КМП поиск: " << Find(source, pattern) << endl;
+        cout << "Линейный поиск: " << SubFind(source, pattern) << endl;
+    }
 }
 
 
